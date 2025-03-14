@@ -1,0 +1,17 @@
+[project]
+name = "polars-exploration"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "rojoyin",email = "rojoyin@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "polars (>=1.24.0,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
