@@ -20,13 +20,31 @@ if os.path.exists(filename):
 else:
     download_file(url, filename)
 
-electric_vehicle_data = pl.read_csv(filename)
-print("First few rows of the data:")
-print(electric_vehicle_data.head())
-print(electric_vehicle_data.describe())
 
-grouped_by_city = electric_vehicle_data.group_by("City").agg(
-    pl.col("VIN (1-10)").count().alias("total_electric_vehicles")
-).sort("total_electric_vehicles")
+import time
 
-print(grouped_by_city)
+def timer_decorator(func):
+    def wrapper_timer(*args, **kwargs):
+        start_time = time.time()
+        value = func(*args, **kwargs)
+        end_time = time.time()
+        run_time = end_time - start_time
+        print(f"Finished {func.__name__!r} in {run_time:.4f} secs")
+        return value
+    return wrapper_timer
+
+@timer_decorator
+def check_file(filename):
+    electric_vehicle_data = pl.read_csv(filename)
+    print("First few rows of the data:")
+    print(electric_vehicle_data.head())
+    print(electric_vehicle_data.describe())
+
+    grouped_by_city = electric_vehicle_data.group_by("City").agg(
+        pl.col("VIN (1-10)").count().alias("total_electric_vehicles")
+    ).sort("total_electric_vehicles")
+
+    print(grouped_by_city)
+
+
+check_file(filename)
