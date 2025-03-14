@@ -2,6 +2,7 @@ import os
 
 import polars as pl
 import dask.dataframe as dd
+import pandas as pd
 
 from polars_exploration.commons import download_file, timer_decorator
 
@@ -50,5 +51,18 @@ def check_file_with_dask(filename):
     print(grouped_by_city)
 
 
+@timer_decorator
+def check_file_with_pandas(filename):
+    electric_vehicle_data = pd.read_csv(filename)
+    print("First few rows of the data:")
+    print(electric_vehicle_data.head())
+    print(electric_vehicle_data.describe())
+
+    grouped_by_city = electric_vehicle_data.groupby("City")["VIN (1-10)"].count().sort_values()
+    print("\nVehicles per city:")
+    print(grouped_by_city)
+
+
 check_file_with_polars(filename)
 check_file_with_dask(filename)
+check_file_with_pandas(filename)
