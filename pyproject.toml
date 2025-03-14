@@ -9,7 +9,8 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "polars (>=1.24.0,<2.0.0)",
-    "requests (>=2.32.3,<3.0.0)"
+    "requests (>=2.32.3,<3.0.0)",
+    "dask (>=2025.2.0,<2026.0.0)"
 ]
 
 
